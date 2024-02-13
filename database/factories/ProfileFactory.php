@@ -25,7 +25,7 @@ class ProfileFactory extends Factory
             'user_id' => User::factory(),
             'username' => $this->faker->userName(),
             'about' => $this->faker->text(),
-            'avatar' => $this->faker->word(),
+            'avatar' => $this->faker->text(),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->word(),
             'city' => $this->faker->city(),

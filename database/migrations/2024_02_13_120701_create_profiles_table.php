@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('username')->unique()->index();
-            $table->text('about');
-            $table->string('avatar');
-            $table->string('phone');
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
-            $table->string('country');
+            $table->string('username')->unique()->index()->nullable();
+            $table->text('about')->nullable();
+            $table->text('avatar')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('country')->nullable();
             $table->boolean('notifications')->default(true);
             $table->timestamps();
         });
