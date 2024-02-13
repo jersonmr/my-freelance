@@ -78,6 +78,7 @@ class Profile extends Page implements HasForms
                                                                ->rows(3)
                                                                ->columnSpan(2),
                                                        ]),
+                                          //- TODO: Add avatar
                                           FileUpload::make('profile.avatar')
                                               ->multiple(false)
                                               ->label(
