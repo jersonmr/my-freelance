@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PaymentGateway extends Model
 {
@@ -16,9 +17,8 @@ class PaymentGateway extends Model
      * @var array
      */
     protected $fillable = [
-        'client_id',
         'name',
-        'type',
+        'email',
     ];
 
     /**
@@ -28,11 +28,24 @@ class PaymentGateway extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'client_id' => 'integer',
     ];
 
-    public function client(): BelongsTo
-    {
-        return $this->belongsTo(Client::class);
+    public static function getForm(): array {
+        return [
+            TextInput::make('name')
+                ->label('Client Name')
+                ->required(),
+            TextInput::make('email')
+                ->label('Email')
+                ->email()
+                ->required(),
+            Select::make('type')
+                ->label('Type')
+                ->options([
+                    'paypal' => 'PayPal',
+                    'binance' => 'Binance',
+                ])
+                ->required(),
+        ];
     }
 }
