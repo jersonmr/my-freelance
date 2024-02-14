@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bank extends Model
 {
@@ -16,11 +16,10 @@ class Bank extends Model
      * @var array
      */
     protected $fillable = [
-        'client_id',
         'location',
         'name',
         'swift',
-        'number',
+        'iban',
         'beneficiary_name',
         'beneficiary_address',
         'beneficiary_email',
@@ -33,11 +32,27 @@ class Bank extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'client_id' => 'integer',
     ];
 
-    public function client(): BelongsTo
+    public static function getForm(): array
     {
-        return $this->belongsTo(Client::class);
+        return [
+            TextInput::make('location')
+                ->required(),
+            TextInput::make('name')
+                ->required(),
+            TextInput::make('swift')
+                ->label('Bank Code / SWIFT')
+                ->required(),
+            TextInput::make('iban')
+                ->label('Account Number / IBAN')
+                ->required(),
+            TextInput::make('beneficiary_name')
+                ->required(),
+            TextInput::make('beneficiary_address')
+                ->required(),
+            TextInput::make('beneficiary_email')
+                ->required(),
+        ];
     }
 }
