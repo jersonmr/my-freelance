@@ -25,6 +25,7 @@ class BankFactory extends Factory
             'name' => $this->faker->name(),
             'swift' => $this->faker->word(),
             'iban' => $this->faker->word(),
+            'address' => $this->faker->word(),
             'beneficiary_name' => $this->faker->word(),
             'beneficiary_address' => $this->faker->word(),
             'beneficiary_email' => $this->faker->word(),

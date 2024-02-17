@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('invoice_items', function (Blueprint $table) {
+        Schema::create('payment_gateways', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('invoice_id')->constrained();
-            $table->string('description');
-            $table->integer('qty')->default(1);
-            $table->integer('price');
+            $table->string('name')->index();
+            $table->string('email');
+            $table->string('type');
             $table->timestamps();
         });
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoice_items');
+        Schema::dropIfExists('payment_gateways');
     }
 };

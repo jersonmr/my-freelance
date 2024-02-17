@@ -28,10 +28,10 @@ class ClientFactory extends Factory
             'email' => $this->faker->safeEmail(),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->word(),
+            'country' => $this->faker->country(),
             'city' => $this->faker->city(),
             'state' => $this->faker->word(),
             'zip' => $this->faker->postcode(),
-            'country' => $this->faker->country(),
         ];
     }
 }

@@ -15,11 +15,11 @@ return new class extends Migration
 
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained();
             $table->string('location');
             $table->string('name')->index();
             $table->string('swift');
-            $table->string('number')->unique();
+            $table->string('iban')->unique();
+            $table->string('address');
             $table->string('beneficiary_name');
             $table->string('beneficiary_address');
             $table->string('beneficiary_email')->nullable();

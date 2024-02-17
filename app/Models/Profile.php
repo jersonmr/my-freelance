@@ -38,7 +38,6 @@ class Profile extends Model
         'id' => 'integer',
         'user_id' => 'integer',
         'notifications' => 'boolean',
-        'avatar' => 'array',
     ];
 
     public function user(): BelongsTo

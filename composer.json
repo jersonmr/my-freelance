@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.8",
         "league/iso3166": "^4.3",
         "spatie/laravel-data": "^4.0",
+        "spatie/laravel-pdf": "^1.2",
         "spatie/ray": "^1.41"
     },
     "require-dev": {

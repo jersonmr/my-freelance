@@ -19,6 +19,7 @@ class PaymentGateway extends Model
     protected $fillable = [
         'name',
         'email',
+        'type',
     ];
 
     /**

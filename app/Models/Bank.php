@@ -20,6 +20,7 @@ class Bank extends Model
         'name',
         'swift',
         'iban',
+        'address',
         'beneficiary_name',
         'beneficiary_address',
         'beneficiary_email',
@@ -46,6 +47,9 @@ class Bank extends Model
                 ->required(),
             TextInput::make('iban')
                 ->label('Account Number / IBAN')
+                ->required(),
+            TextInput::make('address')
+                ->label('Bank Address')
                 ->required(),
             TextInput::make('beneficiary_name')
                 ->required(),

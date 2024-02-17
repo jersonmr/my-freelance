@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('payment_gateways', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->string('name')->index();
-            $table->string('type');
+            $table->string('contact');
+            $table->string('email')->unique();
+            $table->string('phone');
+            $table->string('address');
+            $table->string('country');
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip')->nullable();
             $table->timestamps();
         });
 
@@ -29,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_gateways');
+        Schema::dropIfExists('clients');
     }
 };

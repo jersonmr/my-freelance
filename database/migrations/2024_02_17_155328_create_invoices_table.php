@@ -15,12 +15,19 @@ return new class extends Migration
 
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('client_id')->nullable()->constrained();
+            $table->unsignedBigInteger('bank_id')->nullable();
+            $table->unsignedBigInteger('payment_gateway_id')->nullable();
             $table->string('number')->unique()->index();
             $table->string('subject');
-            $table->date('due');
-            $table->boolean('paid');
+            $table->timestamp('due')->nullable();
+            $table->string('payment_type');
+            $table->json('items');
+            $table->integer('tax')->nullable();
+            $table->integer('subtotal');
             $table->integer('total');
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });
 

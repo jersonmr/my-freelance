@@ -23,43 +23,7 @@ class ClientResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                         Forms\Components\TextInput::make('name')
-                             ->label('Company Name')
-                             ->required(),
-                         Forms\Components\TextInput::make('contact')
-                             ->label('Contact Name')
-                             ->required(),
-                         Forms\Components\TextInput::make('email')
-                             ->label('Email')
-                             ->email()
-                             ->required(),
-                         Forms\Components\TextInput::make('phone')
-                             ->label('Phone')
-                             ->required()
-                            ->tel(),
-                         LocalizedCountrySelect::make('country')
-                             ->label('Country')
-                             ->required()
-                             ->searchable(),
-                         Forms\Components\TextInput::make('address')
-                             ->label('Address')
-                             ->required()
-                             ->columnSpanFull(),
-                         Forms\Components\Group::make()
-                             ->columns(3)
-                             ->schema([
-                                          Forms\Components\TextInput::make('city')
-                                              ->label('City')
-                                              ->required(),
-                                          Forms\Components\TextInput::make('state')
-                                              ->label('State')
-                                              ->required(),
-                                          Forms\Components\TextInput::make('zip')
-                                              ->label('Zip')
-                                              ->required(),
-                                      ]),
-                     ]);
+            ->schema(Client::getForm());
     }
 
     public static function table(Table $table): Table

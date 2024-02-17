@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Client;
 use App\Models\PaymentGateway;
 
 class PaymentGatewayFactory extends Factory
@@ -22,8 +21,8 @@ class PaymentGatewayFactory extends Factory
     public function definition(): array
     {
         return [
-            'client_id' => Client::factory(),
             'name' => $this->faker->name(),
+            'email' => $this->faker->safeEmail(),
             'type' => $this->faker->word(),
         ];
     }
