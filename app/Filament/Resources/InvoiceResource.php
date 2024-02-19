@@ -207,7 +207,7 @@ class InvoiceResource extends Resource
                               ->label('Paid'),
                           Tables\Columns\TextColumn::make('total')
                               ->searchable()
-                              ->money(fn(Invoice $record) => $record->currency)
+                              ->money(fn(Invoice $record) => $record->currency->value)
                               ->label('Total'),
                       ])
             ->filters([
