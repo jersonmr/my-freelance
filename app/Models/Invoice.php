@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Enums\Currency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Invoice extends Model
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,17 +22,16 @@ class Invoice extends Model
         'bank_id',
         'payment_gateway_id',
         'number',
-        'subject',
+        'project',
         'due',
+        'currency',
         'payment_type',
         'items',
-        'subtotal',
         'tax',
+        'subtotal',
         'total',
         'paid_at',
     ];
-
-    use HasFactory;
 
     /**
      * The attributes that should be cast to native types.
@@ -45,6 +47,7 @@ class Invoice extends Model
         'due' => 'date',
         'items' => 'array',
         'paid_at' => 'timestamp',
+        'currency' => Currency::class,
     ];
 
     public function user(): BelongsTo

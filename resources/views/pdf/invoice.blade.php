@@ -42,7 +42,7 @@
             <span class="font-semibold text-sm">{{ __('Beneficiary') }}: </span> {{ auth()->user()->name }}
         </div>
         <div class="text-gray-700 text-sm">
-            <span class="font-semibold text-sm">{{ __('Activity') }}: </span> {{ $data->subject }}
+            <span class="font-semibold text-sm">{{ __('Project') }}: </span> {{ $data->project }}
         </div>
     </div>
     <div class="-mx-4 mt-8 flow-root sm:mx-0">
@@ -67,8 +67,8 @@
                 <tr class="border-b border-gray-200">
                     <td class="px-3 py-5 text-left text-sm text-gray-500">{{ $item['description'] }}</td>
                     <td class="px-3 py-5 text-right text-sm text-gray-500 text-center">{{ $item['hours'] }}</td>
-                    <td class="px-3 py-5 text-right text-sm text-gray-500">{{ $item['rate'] }}</td>
-                    <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{ $item['price'] }}</td>
+                    <td class="px-3 py-5 text-right text-sm text-gray-500">{{ \App\Enums\Currency::symbol($data->currency->value) }} {{ $item['rate'] }}</td>
+                    <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{ \App\Enums\Currency::symbol($data->currency->value) }} {{ $item['price'] }}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -80,7 +80,7 @@
                 </th>
                 <th scope="row" class="pl-4 pr-3 pt-6 text-left text-sm font-normal text-gray-500 sm:hidden">Subtotal
                 </th>
-                <td class="pl-3 pr-4 pt-6 text-right text-sm text-gray-500 sm:pr-0">${{ number_format($data->total, 2) }}</td>
+                <td class="pl-3 pr-4 pt-6 text-right text-sm text-gray-500 sm:pr-0">{{ \App\Enums\Currency::symbol($data->currency->value) }}{{ number_format($data->total, 2) }}</td>
             </tr>
             <tr>
                 <th scope="row" colspan="3"
@@ -96,7 +96,7 @@
                 </th>
                 <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden">Total
                 </th>
-                <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">${{ number_format($data->total, 2) }}</td>
+                <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{ \App\Enums\Currency::symbol($data->currency->value) }}{{ number_format($data->total, 2) }}</td>
             </tr>
             </tfoot>
         </table>

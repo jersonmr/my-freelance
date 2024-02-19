@@ -3,6 +3,7 @@
 namespace App\DataTransferObjects;
 
 use App\Casts\MoneyCast;
+use App\Enums\Currency;
 use App\Models\Bank;
 use App\Models\Invoice;
 use Carbon\Carbon;
@@ -14,7 +15,8 @@ class InvoiceData extends Data
 {
     public function __construct(
         public readonly string $number,
-        public readonly string $subject,
+        public readonly string $project,
+        public readonly Currency $currency,
         #[WithCast(DateTimeInterfaceCast::class)]
         public readonly Carbon $due,
         public readonly array $items,
@@ -30,7 +32,8 @@ class InvoiceData extends Data
     public static function fromModel(Invoice $invoice): self {
         return new self(
             $invoice->number,
-            $invoice->subject,
+            $invoice->project,
+            $invoice->currency,
             $invoice->due,
             $invoice->items,
             $invoice->subtotal,

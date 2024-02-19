@@ -16,6 +16,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "league/iso3166": "^4.3",
+        "ryangjchandler/blade-tabler-icons": "^2.2",
         "spatie/laravel-data": "^4.0",
         "spatie/laravel-pdf": "^1.2",
         "spatie/ray": "^1.41"

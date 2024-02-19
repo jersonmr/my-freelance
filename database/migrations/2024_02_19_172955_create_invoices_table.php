@@ -20,8 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('bank_id')->nullable();
             $table->unsignedBigInteger('payment_gateway_id')->nullable();
             $table->string('number')->unique()->index();
-            $table->string('subject');
-            $table->timestamp('due')->nullable();
+            $table->string('project');
+            $table->date('due')->nullable();
+            $table->string('currency');
             $table->string('payment_type');
             $table->json('items');
             $table->integer('tax')->nullable();

@@ -2,28 +2,25 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Currency;
 use App\Filament\Resources\InvoiceResource\Pages;
-use App\Filament\Resources\InvoiceResource\RelationManagers;
 use App\Models\Bank;
 use App\Models\Client;
 use App\Models\Invoice;
-use App\Models\InvoiceItem;
 use App\Models\PaymentGateway;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\RawJs;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\{Get, Set};
-use Illuminate\Support\Str;
 
 class InvoiceResource extends Resource
 {
     protected static ?string $model = Invoice::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'tabler-file-invoice';
 
     public static function form(Form $form): Form
     {
@@ -62,9 +59,9 @@ class InvoiceResource extends Resource
                                            'xl' => 3,
                                        ])
                              ->schema([
-                                          Forms\Components\TextInput::make('subject')
+                                          Forms\Components\TextInput::make('project')
                                               ->columnSpan(2)
-                                              ->label('Subject')
+                                              ->label('Project')
                                               ->required()
                                               ->columnSpan(2),
                                           Forms\Components\DatePicker::make('due')
@@ -79,7 +76,11 @@ class InvoiceResource extends Resource
                                            'xl' => 4,
                                        ])
                              ->schema([
-
+                                          Forms\Components\Select::make('currency')
+                                              ->columnSpan(1)
+                                              ->label('Currency')
+                                              ->options(Currency::class)
+                                              ->live(),
                                           Forms\Components\Select::make('payment_type')
                                               ->columnSpan(1)
                                               ->label('Payment Type')
@@ -134,17 +135,20 @@ class InvoiceResource extends Resource
                                               ->columnSpan(2),
                                           Forms\Components\TextInput::make('hours')
                                               ->label('Hours')
-                                              ->required()
+                                              ->requiredWithout('price')
                                               ->numeric()
-                                            ->live(debounce: 500)
-                                            ->afterStateUpdated(function (Get $get, Set $set) {
-                                                self::updatePrice($get, $set);
-                                            }),
+                                              ->mask(RawJs::make('$money($input)'))
+                                              ->stripCharacters(',')
+                                              ->live(debounce: 500)
+                                              ->afterStateUpdated(function (Get $get, Set $set) {
+                                                  self::updatePrice($get, $set);
+                                              }),
                                           Forms\Components\TextInput::make('rate')
                                               ->label('Rate')
-                                              ->required()
+                                              ->requiredWithout('price')
                                               ->numeric()
-                                              ->prefix('$')
+                                              ->prefix(fn(Get $get): string => Currency::symbol($get('../../currency')))
+                                              ->mask('999')
                                               ->live(debounce: 500)
                                               ->afterStateUpdated(function (Get $get, Set $set) {
                                                   self::updatePrice($get, $set);
@@ -152,9 +156,10 @@ class InvoiceResource extends Resource
                                           Forms\Components\TextInput::make('price')
                                               ->label('Price')
                                               ->required()
+                                              ->prefix(fn(Get $get): string => Currency::symbol($get('../../currency')))
+//                                              ->mask('99999')
                                               ->readOnly()
-                                              ->numeric()
-                                              ->prefix('$')
+                                              ->numeric(),
                                       ])
                              ->live(debounce: 500)
                              ->afterStateUpdated(function (Get $get, Set $set) {
@@ -164,21 +169,22 @@ class InvoiceResource extends Resource
                          Forms\Components\Grid::make()
                              ->columns(6)
                              ->schema([
-                                        Forms\Components\TextInput::make('subtotal')
-                                            ->label('Subtotal')
-                                            ->readOnly()
-                                            ->required()
-            ->columnStart(6),
+                                          Forms\Components\TextInput::make('subtotal')
+                                              ->label('Subtotal')
+                                              ->readOnly()
+                                              ->required()
+                                              ->columnStart(6),
                                           Forms\Components\TextInput::make('tax')
                                               ->label('Tax')
                                               ->suffix('%')
                                               ->columnStart(6)
-                                            ->live(debounce: 500),
+                                              ->live(debounce: 500),
                                           Forms\Components\TextInput::make('total')
                                               ->label('Total')
                                               ->readOnly()
                                               ->required()
-                                              ->columnStart(6),
+                                              ->columnStart(6)
+                                              ->prefix(fn(Get $get): string => Currency::symbol($get('currency'))),
                                       ])
                              ->afterStateUpdated(function (Get $get, Set $set) {
                                  self::updateTotals($get, $set);
@@ -193,15 +199,15 @@ class InvoiceResource extends Resource
                           Tables\Columns\TextColumn::make('number')
                               ->searchable()
                               ->label('Number'),
-                          Tables\Columns\TextColumn::make('subject')
+                          Tables\Columns\TextColumn::make('project')
                               ->searchable()
-                              ->label('Subject'),
-                          Tables\Columns\IconColumn::make('paid')
-                              ->boolean()
+                              ->label('Project'),
+                          Tables\Columns\IconColumn::make('paid_at')
+                              ->boolean(fn(Invoice $record) => $record->paid_at !== null)
                               ->label('Paid'),
                           Tables\Columns\TextColumn::make('total')
                               ->searchable()
-                              ->money('USD')
+                              ->money(fn(Invoice $record) => $record->currency)
                               ->label('Total'),
                       ])
             ->filters([
@@ -240,6 +246,10 @@ class InvoiceResource extends Resource
 
     public static function updatePrice(Get $get, Set $set): void
     {
+        if (!is_numeric($get('hours')) || !is_numeric($get('rate'))) {
+            return;
+        }
+
         $price = $get('hours') * $get('rate');
 
         $set('price', number_format($price, 2, '.', ''));
@@ -247,11 +257,18 @@ class InvoiceResource extends Resource
 
     public static function updateTotals(Get $get, Set $set): void
     {
+
         // Retrieve all selected items and remove empty rows
-        $selectedItems = collect($get('items'))->filter(fn($item) => !empty($item['rate']) && !empty($item['hours']));
+        $selectedItems = collect($get('items'))->filter(fn($item) => (!empty($item['rate']) && !empty($item['hours'])) || !empty($item['price']));
 
         // Calculate subtotal based on the selected products and quantities
         $subtotal = $selectedItems->reduce(function ($subtotal, $item) {
+            if (!empty($item['hours']) && !empty($item['rate']))
+                return $subtotal + ($item['rate'] * $item['hours']);
+
+            if (!empty($item['price']))
+                return $subtotal + $item['price'];
+
             return $subtotal + ($item['rate'] * $item['hours']);
         }, 0);
 
@@ -269,4 +286,5 @@ class InvoiceResource extends Resource
 //        $set('subtotal', number_format($subtotal, 2, '.', ''));
 //        $set('total', number_format($subtotal + ($subtotal * ($get('taxes') / 100)), 2, '.', ''));
     }
+
 }
