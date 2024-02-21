@@ -40,7 +40,7 @@ return [
     'email' => 'Correo electrónico',
     'beneficiary' => 'Beneficiario',
     'bank' => [
-        'title' => 'Datos Bancarios',
+        'label' => 'Datos Bancarios',
         'location' => 'Ubicación',
         'name' => 'Nombre',
         'address' => 'Dirección',

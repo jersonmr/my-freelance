@@ -40,7 +40,7 @@ return [
     'email' => 'Email',
     'beneficiary' => 'Beneficiary',
     'bank' => [
-        'title' => 'Bank details',
+        'label' => 'Bank details',
         'location' => 'Location',
         'name' => 'Name',
         'address' => 'Address',

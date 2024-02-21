@@ -24,30 +24,30 @@
             <img src="{{ asset('images/mocatec_logo.png') }}" alt="Logo" class="max-w-[50%] object-cover">
         </div>
         <div class="text-gray-700 w-1/2 text-right">
-            <div class="font-semibold text-base">{{ __('invoice.invoice') }} #{{ $data->number }}</div>
-            <div class="text-sm">Date: {{ $data->due->format('Y-m-d') }}</div>
+            <div class="font-semibold text-base">{{ __('filament/resources/invoice.label') }} #{{ $data->number }}</div>
+            <div class="text-sm">{{ __('filament/resources/invoice.date') }}: {{ $data->due->format('Y-m-d') }}</div>
         </div>
     </div>
     <div class="pb-2 mb-2">
         <div class="text-gray-700 text-sm">
-            <span class="font-semibold text-sm">{{ __('invoice.client') }}: </span> {{ $data->client->name }}
+            <span class="font-semibold text-sm">{{ __('filament/resources/invoice.client') }}: </span> {{ $data->client->name }}
         </div>
         <div class="text-gray-700 text-sm">
-            <span class="font-semibold text-sm">{{ __('invoice.contact') }}: </span> {{ $data->client->contact }}
+            <span class="font-semibold text-sm">{{ __('filament/resources/invoice.contact') }}: </span> {{ $data->client->contact }}
         </div>
         <div class="text-gray-700 text-sm">
-            <span class="font-semibold text-sm">{{ __('invoice.address') }}: </span> {{ $data->client->address }}
+            <span class="font-semibold text-sm">{{ __('filament/resources/invoice.address') }}: </span> {{ $data->client->address }}
         </div>
         <div class="text-gray-700 text-sm">
-            <span class="font-semibold text-sm">{{ __('invoice.phone') }}: </span> {{ $data->client->phone }}
+            <span class="font-semibold text-sm">{{ __('filament/resources/invoice.phone') }}: </span> {{ $data->client->phone }}
         </div>
     </div>
     <div class="pb-2 mb-2">
         <div class="text-gray-700 text-sm">
-            <span class="font-semibold text-sm">{{ __('invoice.beneficiary') }}: </span> {{ auth()->user()->name }}
+            <span class="font-semibold text-sm">{{ __('filament/resources/invoice.beneficiary') }}: </span> {{ auth()->user()->name }}
         </div>
         <div class="text-gray-700 text-sm">
-            <span class="font-semibold text-sm">{{ __('invoice.project') }}: </span> {{ $data->project }}
+            <span class="font-semibold text-sm">{{ __('filament/resources/invoice.project') }}: </span> {{ $data->project }}
         </div>
     </div>
     <div class="-mx-4 mt-8 flow-root sm:mx-0">
@@ -61,10 +61,10 @@
             <thead class="border-b border-gray-300 text-gray-900">
             <tr class="text-capitalize">
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                    {{ __('invoice.description') }}</th>
-                <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">{{ __('invoice.hours') }}</th>
-                <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">{{ __('invoice.rate') }}</th>
-                <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{ __('invoice.price') }}
+                    {{ __('filament/resources/invoice.tasks.description') }}</th>
+                <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">{{ __('filament/resources/invoice.tasks.hours') }}</th>
+                <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">{{ __('filament/resources/invoice.tasks.rate') }}</th>
+                <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{ __('filament/resources/invoice.tasks.price') }}
                 </th>
             </tr>
             </thead>
@@ -82,25 +82,25 @@
             <tr>
                 <th scope="row" colspan="3"
                     class="hidden pl-4 pr-3 pt-6 text-right text-sm font-normal text-gray-500 sm:table-cell sm:pl-0 text-capitalize">
-                    {{ __('invoice.subtotal') }}
+                    {{ __('filament/resources/invoice.subtotal') }}
                 </th>
-                <th scope="row" class="pl-4 pr-3 pt-6 text-left text-sm font-normal text-gray-500 sm:hidden text-capitalize">{{ __('invoice.subtotal') }}
+                <th scope="row" class="pl-4 pr-3 pt-6 text-left text-sm font-normal text-gray-500 sm:hidden text-capitalize">{{ __('filament/resources/invoice.subtotal') }}
                 </th>
                 <td class="pl-3 pr-4 pt-6 text-right text-sm text-gray-500 sm:pr-0">{{ $data->subtotal->formatted }}</td>
             </tr>
             <tr>
                 <th scope="row" colspan="3"
-                    class="hidden pl-4 pr-3 pt-4 text-right text-sm font-normal text-gray-500 sm:table-cell sm:pl-0">{{ __('invoice.tax') }}
+                    class="hidden pl-4 pr-3 pt-4 text-right text-sm font-normal text-gray-500 sm:table-cell sm:pl-0">{{ __('filament/resources/invoice.tax') }}
                 </th>
-                <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-normal text-gray-500 sm:hidden text-capitalize">{{ __('invoice.tax') }}</th>
+                <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-normal text-gray-500 sm:hidden text-capitalize">{{ __('filament/resources/invoice.tax') }}</th>
                 <td class="pl-3 pr-4 pt-4 text-right text-sm text-gray-500 sm:pr-0">{{ $data->tax->formatted ?? '0%' }}</td>
             </tr>
             <tr>
                 <th scope="row" colspan="3"
                     class="hidden pl-4 pr-3 pt-4 text-right text-sm font-semibold text-gray-900 sm:table-cell sm:pl-0">
-                    {{ __('invoice.total') }}
+                    {{ __('filament/resources/invoice.total') }}
                 </th>
-                <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden text-capitalize">{{ __('invoice.total') }}
+                <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden text-capitalize">{{ __('filament/resources/invoice.total') }}
                 </th>
                 <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{ $data->total->formatted }}</td>
             </tr>
@@ -110,15 +110,15 @@
 
     @if($data->bank)
         <div class="pt-8 mb-8">
-            <div class="text-gray-700 text-base mb-2 font-semibold">{{ __('invoice.bank.title') }}</div>
-            <div class="text-gray-700 text-sm mb-2">{{ __('invoice.bank.location') }}: {{ $data->bank->location }}</div>
-            <div class="text-gray-700 text-sm mb-2">{{ __('invoice.bank.name') }}: {{ $data->bank->name }}</div>
-            <div class="text-gray-700 text-sm mb-2">{{ __('invoice.bank.address') }}: {{ $data->bank->address }}</div>
-            <div class="text-gray-700 text-sm mb-2">{{ __('invoice.bank.swift') }}
+            <div class="text-gray-700 text-base mb-2 font-semibold">{{ __('filament/resources/invoice.bank.label') }}</div>
+            <div class="text-gray-700 text-sm mb-2">{{ __('filament/resources/invoice.bank.location') }}: {{ $data->bank->location }}</div>
+            <div class="text-gray-700 text-sm mb-2">{{ __('filament/resources/invoice.bank.name') }}: {{ $data->bank->name }}</div>
+            <div class="text-gray-700 text-sm mb-2">{{ __('filament/resources/invoice.bank.address') }}: {{ $data->bank->address }}</div>
+            <div class="text-gray-700 text-sm mb-2">{{ __('filament/resources/invoice.bank.swift') }}
                 : {{ $data->bank->swift }}</div>
-            <div class="text-gray-700 text-sm mb-2">{{ __('invoice.bank.iban') }}: {{ $data->bank->iban }}</div>
-            <div class="text-gray-700 text-sm mb-2">{{ __('invoice.bank.beneficiary.name') }}: {{ $data->bank->beneficiary_name }}</div>
-            <div class="text-gray-700 text-sm mb-2">{{ __('invoice.bank.beneficiary.address') }}: {{ $data->bank->beneficiary_address }}</div>
+            <div class="text-gray-700 text-sm mb-2">{{ __('filament/resources/invoice.bank.iban') }}: {{ $data->bank->iban }}</div>
+            <div class="text-gray-700 text-sm mb-2">{{ __('filament/resources/invoice.bank.beneficiary.name') }}: {{ $data->bank->beneficiary_name }}</div>
+            <div class="text-gray-700 text-sm mb-2">{{ __('filament/resources/invoice.bank.beneficiary.address') }}: {{ $data->bank->beneficiary_address }}</div>
         </div>
     @endif
 </div>
