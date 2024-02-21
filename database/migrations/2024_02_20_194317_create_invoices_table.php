@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('tax')->nullable();
             $table->integer('subtotal');
             $table->integer('total');
-            $table->timestamp('paid_at')->nullable();
+            $table->boolean('paid')->default(false);
             $table->timestamps();
         });
 

@@ -2,10 +2,11 @@
 
 namespace App\DataTransferObjects;
 
-use App\Casts\MoneyCast;
 use App\Enums\Currency;
 use App\Models\Bank;
 use App\Models\Invoice;
+use App\ValueObjects\Percent;
+use App\ValueObjects\Price;
 use Carbon\Carbon;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
@@ -20,13 +21,13 @@ class InvoiceData extends Data
         #[WithCast(DateTimeInterfaceCast::class)]
         public readonly Carbon $due,
         public readonly array $items,
-        public readonly float $subtotal,
-        public readonly null|int $tax,
-        public readonly float $total,
+        public readonly Price $subtotal,
+        public readonly null|Percent $tax,
+        public readonly Price $total,
         #[WithCast(DateTimeInterfaceCast::class)]
-        public readonly ?Carbon $paid,
+        public readonly bool $paid,
         public readonly ClientData $client,
-        public readonly BankData $bank,
+        public readonly ?BankData $bank,
     ) {}
 
     public static function fromModel(Invoice $invoice): self {
@@ -36,12 +37,12 @@ class InvoiceData extends Data
             $invoice->currency,
             $invoice->due,
             $invoice->items,
-            $invoice->subtotal,
-            $invoice->tax,
-            $invoice->total,
+            Price::from($invoice->subtotal, $invoice->currency),
+            Percent::from($invoice->tax),
+            Price::from($invoice->total, $invoice->currency),
             $invoice->paid,
             ClientData::from($invoice->client),
-            BankData::from(Bank::find($invoice->bank_id)),
+            $invoice->bank_id ? BankData::from(Bank::find($invoice->bank_id)) : null,
         );
     }
 }

@@ -86,14 +86,14 @@
                 </th>
                 <th scope="row" class="pl-4 pr-3 pt-6 text-left text-sm font-normal text-gray-500 sm:hidden text-capitalize">{{ __('invoice.subtotal') }}
                 </th>
-                <td class="pl-3 pr-4 pt-6 text-right text-sm text-gray-500 sm:pr-0">{{ \App\Enums\Currency::symbol($data->currency->value) }}{{ number_format($data->total, 2) }}</td>
+                <td class="pl-3 pr-4 pt-6 text-right text-sm text-gray-500 sm:pr-0">{{ $data->subtotal->formatted }}</td>
             </tr>
             <tr>
                 <th scope="row" colspan="3"
                     class="hidden pl-4 pr-3 pt-4 text-right text-sm font-normal text-gray-500 sm:table-cell sm:pl-0">{{ __('invoice.tax') }}
                 </th>
                 <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-normal text-gray-500 sm:hidden text-capitalize">{{ __('invoice.tax') }}</th>
-                <td class="pl-3 pr-4 pt-4 text-right text-sm text-gray-500 sm:pr-0">{{ $data->tax ?? '0%' }}</td>
+                <td class="pl-3 pr-4 pt-4 text-right text-sm text-gray-500 sm:pr-0">{{ $data->tax->formatted ?? '0%' }}</td>
             </tr>
             <tr>
                 <th scope="row" colspan="3"
@@ -102,7 +102,7 @@
                 </th>
                 <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden text-capitalize">{{ __('invoice.total') }}
                 </th>
-                <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{ \App\Enums\Currency::symbol($data->currency->value) }}{{ number_format($data->total, 2) }}</td>
+                <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{ $data->total->formatted }}</td>
             </tr>
             </tfoot>
         </table>

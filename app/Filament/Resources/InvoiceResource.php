@@ -22,6 +22,8 @@ class InvoiceResource extends Resource
 
     protected static ?string $navigationIcon = 'tabler-file-invoice';
 
+    protected static ?string $modelLabel = 'Facturas';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -173,7 +175,8 @@ class InvoiceResource extends Resource
                                               ->label('Subtotal')
                                               ->readOnly()
                                               ->required()
-                                              ->columnStart(6),
+                                              ->columnStart(6)
+                                              ->prefix(fn(Get $get): string => Currency::symbol($get('currency'))),
                                           Forms\Components\TextInput::make('tax')
                                               ->label('Tax')
                                               ->suffix('%')
@@ -202,8 +205,8 @@ class InvoiceResource extends Resource
                           Tables\Columns\TextColumn::make('project')
                               ->searchable()
                               ->label('Project'),
-                          Tables\Columns\IconColumn::make('paid_at')
-                              ->boolean(fn(Invoice $record) => $record->paid_at !== null)
+                          Tables\Columns\IconColumn::make('paid')
+                              ->boolean()
                               ->label('Paid'),
                           Tables\Columns\TextColumn::make('total')
                               ->searchable()

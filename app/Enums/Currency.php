@@ -9,9 +9,6 @@ enum Currency: string
     case GBP = 'GBP';
     case JPY = 'JPY';
 
-    /**
-     * @throws \Exception
-     */
     public static function symbol($symbol): string
     {
         return match ($symbol) {
@@ -19,7 +16,7 @@ enum Currency: string
             self::USD->value => '$',
             self::GBP->value => '£',
             self::JPY->value => '¥',
-            default => throw new \Exception('Unexpected match value'),
+            default => '$',
         };
     }
 }

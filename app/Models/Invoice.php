@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Casts\PercentCast;
 use App\Enums\Currency;
+use App\Models\Casts\PriceCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,7 +32,7 @@ class Invoice extends Model
         'tax',
         'subtotal',
         'total',
-        'paid_at',
+        'paid',
     ];
 
     /**
@@ -46,8 +48,11 @@ class Invoice extends Model
         'payment_gateway_id' => 'integer',
         'due' => 'date',
         'items' => 'array',
-        'paid_at' => 'timestamp',
+        'paid' => 'boolean',
         'currency' => Currency::class,
+        'subtotal' => PriceCast::class,
+        'total' => PriceCast::class,
+//        'tax' => PercentCast::class,
     ];
 
     public function user(): BelongsTo

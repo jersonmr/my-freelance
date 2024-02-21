@@ -36,7 +36,7 @@ class InvoiceFactory extends Factory
             'tax' => $this->faker->numberBetween(-10000, 10000),
             'subtotal' => $this->faker->numberBetween(-10000, 10000),
             'total' => $this->faker->numberBetween(-10000, 10000),
-            'paid_at' => $this->faker->dateTime(),
+            'paid' => $this->faker->boolean(),
         ];
     }
 }
