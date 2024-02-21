@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use App\ValueObjects\Percent;
 use App\ValueObjects\Price;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
@@ -20,7 +21,7 @@ class InvoiceData extends Data
         public readonly Currency $currency,
         #[WithCast(DateTimeInterfaceCast::class)]
         public readonly Carbon $due,
-        public readonly array $items,
+        public readonly Collection $items,
         public readonly Price $subtotal,
         public readonly null|Percent $tax,
         public readonly Price $total,
@@ -36,7 +37,7 @@ class InvoiceData extends Data
             $invoice->project,
             $invoice->currency,
             $invoice->due,
-            $invoice->items,
+            collect($invoice->items)->map(fn($item) => InvoiceItemData::from($item)),
             Price::from($invoice->subtotal, $invoice->currency),
             Percent::from($invoice->tax),
             Price::from($invoice->total, $invoice->currency),

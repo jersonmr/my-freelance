@@ -71,10 +71,10 @@
             <tbody>
             @foreach($data->items as $item)
                 <tr class="border-b border-gray-200">
-                    <td class="px-3 py-5 text-left text-sm text-gray-500">{{ $item['description'] }}</td>
-                    <td class="px-3 py-5 text-right text-sm text-gray-500 text-center">{{ $item['hours'] }}</td>
-                    <td class="px-3 py-5 text-right text-sm text-gray-500">{{ \App\Enums\Currency::symbol($data->currency->value) }} {{ $item['rate'] }}</td>
-                    <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{ \App\Enums\Currency::symbol($data->currency->value) }} {{ $item['price'] }}</td>
+                    <td class="px-3 py-5 text-left text-sm text-gray-500">{{ $item->description }}</td>
+                    <td class="px-3 py-5 text-right text-sm text-gray-500 text-center">{{ $item->hours }}</td>
+                    <td class="px-3 py-5 text-right text-sm text-gray-500">{{ \App\Enums\Currency::symbol($data->currency->value) }} {{ $item->rate }}</td>
+                    <td class="py-5 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{ \App\Enums\Currency::symbol($data->currency->value) }} {{ $item->price }}</td>
                 </tr>
             @endforeach
             </tbody>

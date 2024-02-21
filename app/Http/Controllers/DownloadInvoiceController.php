@@ -14,7 +14,6 @@ class DownloadInvoiceController extends Controller
     {
         $data = InvoiceData::from($invoice);
 
-//        return pdf('pdf.invoice', compact('data'));
         return Pdf::view('pdf.invoice', compact('data'))
             ->disk('public')
             ->format('a4')

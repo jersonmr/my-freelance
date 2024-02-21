@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\PercentCast;
 use App\Enums\Currency;
 use App\Models\Casts\PriceCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
