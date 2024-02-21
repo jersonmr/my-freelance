@@ -22,7 +22,10 @@ class InvoiceResource extends Resource
 
     protected static ?string $navigationIcon = 'tabler-file-invoice';
 
-    protected static ?string $modelLabel = 'Facturas';
+    public static function getModelLabel(): string
+    {
+        return __('filament/resources/invoice.label');
+    }
 
     public static function form(Form $form): Form
     {
@@ -30,7 +33,7 @@ class InvoiceResource extends Resource
             ->columns(4)
             ->schema([
                          Forms\Components\Select::make('client_id')
-                             ->label('Client')
+                             ->label(__('filament/resources/invoice.client'))
                              ->options(function () {
                                  return \App\Models\Client::whereBelongsTo(auth()->user())->pluck('name', 'id');
                              })
@@ -49,7 +52,7 @@ class InvoiceResource extends Resource
                          Forms\Components\TextInput::make('number')
                              ->default('INV-' . random_int(100000, 999999))
                              ->disabled()
-                             ->label('Number')
+                             ->label(__('filament/resources/invoice.number'))
                              ->dehydrated()
                              ->required()
                              ->maxLength(32)
@@ -63,12 +66,12 @@ class InvoiceResource extends Resource
                              ->schema([
                                           Forms\Components\TextInput::make('project')
                                               ->columnSpan(2)
-                                              ->label('Project')
+                                              ->label(__('filament/resources/invoice.project'))
                                               ->required()
                                               ->columnSpan(2),
                                           Forms\Components\DatePicker::make('due')
                                               ->columnSpan(1)
-                                              ->label('Date')
+                                              ->label(__('filament/resources/invoice.date'))
                                               ->default(now()->format('Y-m-d')),
                                       ]),
                          Forms\Components\Grid::make()
@@ -80,23 +83,23 @@ class InvoiceResource extends Resource
                              ->schema([
                                           Forms\Components\Select::make('currency')
                                               ->columnSpan(1)
-                                              ->label('Currency')
+                                              ->label(__('filament/resources/invoice.currency'))
                                               ->options(Currency::class)
                                               ->live(),
                                           Forms\Components\Select::make('payment_type')
                                               ->columnSpan(1)
-                                              ->label('Payment Type')
+                                              ->label(__('filament/resources/invoice.payment_type.label'))
                                               ->options([
-                                                            'bank_transfer' => 'Bank Transfer',
-                                                            'paypal' => 'PayPal',
-                                                            'binance' => 'Binance',
-                                                            'cash' => 'Cash',
+                                                            'bank_transfer' => __('filament/resources/invoice.payment_type.bank'),
+                                                            'cash' => __('filament/resources/invoice.payment_type.cash'),
+                                                            'paypal' => __('filament/resources/invoice.payment_type.paypal'),
+                                                            'binance' => __('filament/resources/invoice.payment_type.binance'),
                                                         ])
                                               ->live()
                                               ->required(),
                                           Forms\Components\Select::make('bank_id')
                                               ->columnSpan(1)
-                                              ->label('Bank Account')
+                                              ->label(__('filament/resources/invoice.bank_account'))
                                               ->options(function () {
                                                   return Bank::all()->pluck('name', 'id');
                                               })
@@ -112,7 +115,7 @@ class InvoiceResource extends Resource
                                               ->visible(fn($get) => $get('payment_type') === 'bank_transfer'),
                                           Forms\Components\Select::make('payment_gateway_id')
                                               ->columnSpan(1)
-                                              ->label('Payment Gateway')
+                                              ->label(__('filament/resources/invoice.payment_gateway'))
                                               ->options(function (Get $get) {
                                                   return PaymentGateway::where('type', '=', $get('payment_type'))->pluck('name', 'id');
                                               })
@@ -128,15 +131,16 @@ class InvoiceResource extends Resource
                                               ->visible(fn($get) => $get('payment_type') === 'paypal' || $get('payment_type') === 'binance'),
                                       ]),
                          Forms\Components\Repeater::make('items')
+                             ->label(__('filament/resources/invoice.tasks.label'))
                              ->columnSpanFull()
                              ->columns(5)
                              ->schema([
                                           Forms\Components\TextInput::make('description')
-                                              ->label('Description')
+                                              ->label(__('filament/resources/invoice.tasks.description'))
                                               ->required()
                                               ->columnSpan(2),
                                           Forms\Components\TextInput::make('hours')
-                                              ->label('Hours')
+                                              ->label(__('filament/resources/invoice.tasks.hours'))
                                               ->requiredWithout('price')
                                               ->numeric()
                                               ->mask(RawJs::make('$money($input)'))
@@ -146,7 +150,7 @@ class InvoiceResource extends Resource
                                                   self::updatePrice($get, $set);
                                               }),
                                           Forms\Components\TextInput::make('rate')
-                                              ->label('Rate')
+                                              ->label(__('filament/resources/invoice.tasks.rate'))
                                               ->requiredWithout('price')
                                               ->numeric()
                                               ->prefix(fn(Get $get): string => Currency::symbol($get('../../currency')))
@@ -156,10 +160,9 @@ class InvoiceResource extends Resource
                                                   self::updatePrice($get, $set);
                                               }),
                                           Forms\Components\TextInput::make('price')
-                                              ->label('Price')
+                                              ->label(__('filament/resources/invoice.tasks.price'))
                                               ->required()
                                               ->prefix(fn(Get $get): string => Currency::symbol($get('../../currency')))
-//                                              ->mask('99999')
                                               ->readOnly()
                                               ->numeric(),
                                       ])
@@ -172,18 +175,18 @@ class InvoiceResource extends Resource
                              ->columns(6)
                              ->schema([
                                           Forms\Components\TextInput::make('subtotal')
-                                              ->label('Subtotal')
+                                              ->label(__('filament/resources/invoice.subtotal'))
                                               ->readOnly()
                                               ->required()
                                               ->columnStart(6)
                                               ->prefix(fn(Get $get): string => Currency::symbol($get('currency'))),
                                           Forms\Components\TextInput::make('tax')
-                                              ->label('Tax')
+                                              ->label(__('filament/resources/invoice.tax'))
                                               ->suffix('%')
                                               ->columnStart(6)
                                               ->live(debounce: 500),
                                           Forms\Components\TextInput::make('total')
-                                              ->label('Total')
+                                              ->label(__('filament/resources/invoice.total'))
                                               ->readOnly()
                                               ->required()
                                               ->columnStart(6)
