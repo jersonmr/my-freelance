@@ -8,14 +8,19 @@ use App\Models\Bank;
 use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\PaymentGateway;
+use App\Models\User;
+use App\Notifications\InvoiceNotification;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Support\RawJs;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceResource extends Resource
 {
@@ -225,7 +230,42 @@ class InvoiceResource extends Resource
                 Tables\Actions\Action::make('Download')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->iconButton()
-                    ->url(fn (Invoice $record) => route('invoices.download', $record), shouldOpenInNewTab: true),
+                    ->url(fn (Invoice $record) => Storage::url("invoices/{$record->number}.pdf"), shouldOpenInNewTab: true),
+                Tables\Actions\Action::make('Send')
+                    ->icon('tabler-mail-up')
+                    ->iconButton()
+                    ->color('success')
+                    ->outlined()
+                    ->tooltip(__('filament/resources/invoice.actions.send'))
+                    ->requiresConfirmation()
+                    ->form([
+                               Forms\Components\TextInput::make('subject')
+                                   ->label('Asunto')
+                                   ->required(),
+                               Forms\Components\Textarea::make('message')
+                                   ->label('Mensaje')
+                                   ->required(),
+                           ])
+                    ->action(function (User $user, array $data, Model $record) {
+                        try {
+                            $user->notify(new InvoiceNotification($data['subject'], $data['message'], $record));
+                            self::makeNotification(
+                                title: 'Notificación enviada',
+                                body: 'La notificación ha sido enviada correctamente'
+                            )
+                                ->icon('tabler-mail-forward')
+                                ->iconColor('success')
+                                ->send();
+                        } catch (\Exception $exception) {
+                            self::makeNotification(
+                                title: 'Error',
+                                body: $exception->getMessage(),
+                                color: 'danger'
+                            )
+                                ->warning()
+                                ->send();
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -292,5 +332,13 @@ class InvoiceResource extends Resource
 
         //        $set('subtotal', number_format($subtotal, 2, '.', ''));
         //        $set('total', number_format($subtotal + ($subtotal * ($get('taxes') / 100)), 2, '.', ''));
+    }
+
+    private static function makeNotification(string $title, string $body, string $color = 'success'): Notification
+    {
+        return Notification::make()
+            ->color($color)
+            ->title($title)
+            ->body($body);
     }
 }

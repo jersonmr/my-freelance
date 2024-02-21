@@ -25,7 +25,6 @@ class InvoiceData extends Data
         public readonly Price $subtotal,
         public readonly ?Percent $tax,
         public readonly Price $total,
-        #[WithCast(DateTimeInterfaceCast::class)]
         public readonly bool $paid,
         public readonly ClientData $client,
         public readonly ?BankData $bank,
@@ -43,7 +42,7 @@ class InvoiceData extends Data
             Price::from($invoice->subtotal, $invoice->currency),
             Percent::from($invoice->tax),
             Price::from($invoice->total, $invoice->currency),
-            $invoice->paid,
+            $invoice->paid ?? false,
             ClientData::from($invoice->client),
             $invoice->bank_id ? BankData::from(Bank::find($invoice->bank_id)) : null,
         );
