@@ -6,9 +6,9 @@
 </p>
 
 @component('mail::button', ['url' => \Illuminate\Support\Facades\Storage::url("invoices/{$invoice->number}.pdf")])
-{{ __('invoice.mail.action') }}
+{{ __('filament/resources/invoice.mail.action') }}
 @endcomponent
 
-{{ __('invoice.mail.thanks') }},<br>
+{{ __('filament/resources/invoice.mail.thanks') }},<br>
 {{ config('app.name') }}
 @endcomponent

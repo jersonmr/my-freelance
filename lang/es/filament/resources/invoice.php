@@ -51,4 +51,8 @@ return [
             'address' => 'Dirección del beneficiario',
         ],
     ],
+    'mail' => [
+        'action' => 'Ver factura',
+        'thanks' => 'Gracias por usar nuestra aplicación!',
+    ],
 ];

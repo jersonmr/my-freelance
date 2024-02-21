@@ -51,4 +51,8 @@ return [
             'address' => 'Beneficiary address',
         ],
     ],
+    'mail' => [
+        'action' => 'Show invoice',
+        'thanks' => 'Thank you for using our application!',
+    ],
 ];
