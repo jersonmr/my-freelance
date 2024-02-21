@@ -209,8 +209,7 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('project')
                     ->searchable()
                     ->label(__('filament/resources/invoice.project')),
-                Tables\Columns\IconColumn::make('paid')
-                    ->boolean()
+                Tables\Columns\ToggleColumn::make('paid')
                     ->label(__('filament/resources/invoice.paid')),
                 Tables\Columns\TextColumn::make('total')
                     ->searchable()

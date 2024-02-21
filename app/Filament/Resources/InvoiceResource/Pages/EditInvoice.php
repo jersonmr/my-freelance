@@ -12,7 +12,6 @@ class EditInvoice extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        //        dd($this->record);
         return [
             Actions\DeleteAction::make(),
             Actions\Action::make('print')
