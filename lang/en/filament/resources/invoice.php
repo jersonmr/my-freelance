@@ -1,10 +1,15 @@
 <?php
 
 return [
+    'actions' => [
+        'download' => 'Download',
+        'send' => 'Send',
+    ],
     'label' => 'Invoice',
     'client' => 'Client',
     'number' => 'Invoice number',
     'project' => 'Project',
+    'paid' => 'Paid',
     'date' => 'Date',
     'currency' => 'Currency',
     'payment_type' => [

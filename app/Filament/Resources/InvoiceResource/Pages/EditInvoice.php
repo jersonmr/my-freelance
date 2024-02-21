@@ -17,8 +17,8 @@ class EditInvoice extends EditRecord
         return [
             Actions\DeleteAction::make(),
             Actions\Action::make('print')
-                ->label('Generar PDF')
-                ->icon('heroicon-o-printer')
+                ->label(__('filament/resources/invoice.actions.download'))
+                ->icon('tabler-pdf')
                 ->url(fn() => route('invoices.download', ['invoice' => $this->record]), shouldOpenInNewTab: true)
         ];
     }

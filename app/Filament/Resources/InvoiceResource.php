@@ -204,17 +204,17 @@ class InvoiceResource extends Resource
             ->columns([
                           Tables\Columns\TextColumn::make('number')
                               ->searchable()
-                              ->label('Number'),
+                              ->label(__('filament/resources/invoice.number')),
                           Tables\Columns\TextColumn::make('project')
                               ->searchable()
-                              ->label('Project'),
+                              ->label(__('filament/resources/invoice.project')),
                           Tables\Columns\IconColumn::make('paid')
                               ->boolean()
-                              ->label('Paid'),
+                              ->label(__('filament/resources/invoice.paid')),
                           Tables\Columns\TextColumn::make('total')
                               ->searchable()
                               ->money(fn(Invoice $record) => $record->currency->value)
-                              ->label('Total'),
+                              ->label(__('filament/resources/invoice.total')),
                       ])
             ->filters([
                           //

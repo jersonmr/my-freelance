@@ -1,10 +1,15 @@
 <?php
 
 return [
+    'actions' => [
+        'download' => 'Descargar',
+        'send' => 'Enviar',
+    ],
     'label' => 'Factura',
     'client' => 'Cliente',
     'number' => 'Número de factura',
     'project' => 'Proyecto',
+    'paid' => 'Pagado',
     'date' => 'Fecha',
     'currency' => 'Moneda',
     'payment_type' => [
