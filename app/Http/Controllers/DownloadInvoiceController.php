@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTransferObjects\InvoiceData;
 use App\Models\Invoice;
-use Spatie\Browsershot\Browsershot;
 use Spatie\LaravelPdf\Facades\Pdf;
-use function Spatie\LaravelPdf\Support\pdf;
 
 class DownloadInvoiceController extends Controller
 {

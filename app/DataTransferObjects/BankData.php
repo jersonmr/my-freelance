@@ -15,5 +15,6 @@ class BankData extends Data
         public readonly string $beneficiary_name,
         public readonly string $beneficiary_address,
         public readonly string $beneficiary_email,
-    ) {}
+    ) {
+    }
 }

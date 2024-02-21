@@ -51,7 +51,7 @@ class Invoice extends Model
         'currency' => Currency::class,
         'subtotal' => PriceCast::class,
         'total' => PriceCast::class,
-//        'tax' => PercentCast::class,
+        //        'tax' => PercentCast::class,
     ];
 
     public function user(): BelongsTo

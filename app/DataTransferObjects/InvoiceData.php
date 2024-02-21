@@ -23,21 +23,23 @@ class InvoiceData extends Data
         public readonly Carbon $due,
         public readonly Collection $items,
         public readonly Price $subtotal,
-        public readonly null|Percent $tax,
+        public readonly ?Percent $tax,
         public readonly Price $total,
         #[WithCast(DateTimeInterfaceCast::class)]
         public readonly bool $paid,
         public readonly ClientData $client,
         public readonly ?BankData $bank,
-    ) {}
+    ) {
+    }
 
-    public static function fromModel(Invoice $invoice): self {
+    public static function fromModel(Invoice $invoice): self
+    {
         return new self(
             $invoice->number,
             $invoice->project,
             $invoice->currency,
             $invoice->due,
-            collect($invoice->items)->map(fn($item) => InvoiceItemData::from($item)),
+            collect($invoice->items)->map(fn ($item) => InvoiceItemData::from($item)),
             Price::from($invoice->subtotal, $invoice->currency),
             Percent::from($invoice->tax),
             Price::from($invoice->total, $invoice->currency),

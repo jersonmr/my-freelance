@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PriceCast implements CastsAttributes
 {
-
     public function get(Model $model, string $key, mixed $value, array $attributes)
     {
         return $value / 100;

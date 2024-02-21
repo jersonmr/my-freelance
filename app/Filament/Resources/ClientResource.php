@@ -2,17 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Forms\Components\LocalizedCountrySelect;
 use App\Filament\Resources\ClientResource\Pages;
-use App\Filament\Resources\ClientResource\RelationManagers;
 use App\Models\Client;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ClientResource extends Resource
 {
@@ -30,30 +25,30 @@ class ClientResource extends Resource
     {
         return $table
             ->columns([
-                          Tables\Columns\TextColumn::make('name')
-                              ->searchable()
-                              ->sortable(),
-                            Tables\Columns\TextColumn::make('contact')
-                              ->searchable(),
-                            Tables\Columns\TextColumn::make('email')
-                              ->searchable(),
-                            Tables\Columns\TextColumn::make('phone')
-                                ->searchable(),
-                      ])
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('contact')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('phone')
+                    ->searchable(),
+            ])
             ->filters([
-                          //
-                      ])
+                //
+            ])
             ->actions([
-                          Tables\Actions\EditAction::make()
-                            ->iconButton(),
-                          Tables\Actions\DeleteAction::make()
-                            ->iconButton(),
-                      ])
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
+            ])
             ->bulkActions([
-                              Tables\Actions\BulkActionGroup::make([
-                                                                       Tables\Actions\DeleteBulkAction::make(),
-                                                                   ]),
-                          ]);
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array

@@ -80,13 +80,13 @@ class Client extends Model
             Group::make()
                 ->columns(3)
                 ->schema([
-                             TextInput::make('city')
-                                 ->label('City'),
-                             TextInput::make('state')
-                                 ->label('State'),
-                             TextInput::make('zip')
-                                 ->label('Zip'),
-                         ]),
+                    TextInput::make('city')
+                        ->label('City'),
+                    TextInput::make('state')
+                        ->label('State'),
+                    TextInput::make('zip')
+                        ->label('Zip'),
+                ]),
         ];
     }
 }

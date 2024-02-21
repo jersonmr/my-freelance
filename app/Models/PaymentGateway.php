@@ -31,7 +31,8 @@ class PaymentGateway extends Model
         'id' => 'integer',
     ];
 
-    public static function getForm(): array {
+    public static function getForm(): array
+    {
         return [
             TextInput::make('name')
                 ->label('Client Name')

@@ -3,16 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PaymentGatewayResource\Pages;
-use App\Filament\Resources\PaymentGatewayResource\RelationManagers;
 use App\Models\PaymentGateway;
-use Faker\Provider\Text;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PaymentGatewayResource extends Resource
 {
@@ -26,7 +22,7 @@ class PaymentGatewayResource extends Resource
             ->schema([
                 Forms\Components\Grid::make()
                     ->columns(3)
-                    ->schema(PaymentGateway::getForm())
+                    ->schema(PaymentGateway::getForm()),
             ]);
     }
 

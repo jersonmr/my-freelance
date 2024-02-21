@@ -5,6 +5,7 @@ namespace App\ValueObjects;
 class Percent
 {
     public readonly ?float $value;
+
     public readonly string $formatted;
 
     public function __construct(?int $value)
@@ -12,9 +13,9 @@ class Percent
         $this->value = $value;
 
         if ($this->value === null) {
-            $this->formatted = "";
+            $this->formatted = '';
         } else {
-            $this->formatted = number_format($value / 100, 2) . "%";
+            $this->formatted = number_format($value / 100, 2).'%';
         }
     }
 
