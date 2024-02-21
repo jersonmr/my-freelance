@@ -226,7 +226,7 @@ class InvoiceResource extends Resource
                 Tables\Actions\Action::make('Download')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->iconButton()
-                    ->url(fn (Invoice $record) => route('invoices.download', $record)),
+                    ->url(fn (Invoice $record) => route('invoices.download', $record), shouldOpenInNewTab: true),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

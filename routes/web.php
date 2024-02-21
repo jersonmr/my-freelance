@@ -18,4 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/invoice/{invoice}', DownloadInvoiceController::class)->name('invoices.download');
+Route::group(['prefix' => 'admin/invoices'], function () {
+    Route::get('/invoice/{invoice}', DownloadInvoiceController::class)
+        ->name('invoices.download');
+});
