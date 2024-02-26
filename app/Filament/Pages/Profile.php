@@ -60,10 +60,11 @@ class Profile extends Page implements HasForms
                     ])
                     ->description('This is the personal user information.'),
                 Section::make('Profile')
+                    ->relationship('profile')
                     ->description('This information will be displayed publicly so be careful what you share.')
                     ->columns(3)
                     ->schema([
-                        TextInput::make('profile.username')
+                        TextInput::make('username')
                             ->label(__('Username'))
                             ->autofocus()
                             ->columnSpan(1)
@@ -71,22 +72,11 @@ class Profile extends Page implements HasForms
                         Grid::make()
                             ->columns(3)
                             ->schema([
-                                Textarea::make('profile.about')
+                                Textarea::make('about')
                                     ->label(__('About'))
                                     ->rows(3)
                                     ->columnSpan(2),
                             ]),
-                        //- TODO: Add avatar
-                        FileUpload::make('profile.avatar')
-                            ->multiple(false)
-                            ->label(
-                                __('Avatar'))
-                            ->maxSize(1024 * 1024 * 2)
-                            ->avatar()
-                            ->imageEditor()
-                            ->circleCropper()
-                            ->directory('avatars')
-                            ->columnSpan(1),
                     ]),
                 Section::make('Contact Information')
                     ->relationship('profile')
@@ -131,7 +121,6 @@ class Profile extends Page implements HasForms
 
     public function update()
     {
-        dd($this->data);
         $attributes = $this->form->getState();
 
         $user = auth()->user();

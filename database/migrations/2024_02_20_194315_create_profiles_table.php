@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('username')->unique()->index()->nullable();
             $table->text('about')->nullable();
-            $table->text('avatar')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
