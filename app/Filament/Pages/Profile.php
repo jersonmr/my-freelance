@@ -46,26 +46,26 @@ class Profile extends Page implements HasForms
     {
         return $form
             ->schema([
-                Section::make('User Information')
+                Section::make(__('filament/pages/profile.user.title'))
                     ->columns(2)
                     ->schema([
                         TextInput::make('name')
-                            ->label(__('Name'))
+                            ->label(__('filament/pages/profile.user.name'))
                             ->columnSpan(1),
                         TextInput::make('email')
-                            ->label(__('Email'))
+                            ->label(__('filament/pages/profile.user.email'))
                             ->email()
                             ->columnSpan(1)
                             ->unique('users', 'email', ignoreRecord: true),
                     ])
-                    ->description('This is the personal user information.'),
-                Section::make('Profile')
+                    ->description(__('filament/pages/profile.user.subtitle')),
+                Section::make(__('filament/pages/profile.profile.title'))
                     ->relationship('profile')
-                    ->description('This information will be displayed publicly so be careful what you share.')
+                    ->description(__('filament/pages/profile.profile.subtitle'))
                     ->columns(3)
                     ->schema([
                         TextInput::make('username')
-                            ->label(__('Username'))
+                            ->label(__('filament/pages/profile.profile.username'))
                             ->autofocus()
                             ->columnSpan(1)
                             ->unique('profiles', 'username', ignoreRecord: true),
@@ -73,36 +73,35 @@ class Profile extends Page implements HasForms
                             ->columns(3)
                             ->schema([
                                 Textarea::make('about')
-                                    ->label(__('About'))
+                                    ->label(__('filament/pages/profile.profile.about'))
                                     ->rows(3)
                                     ->columnSpan(2),
                             ]),
                     ]),
-                Section::make('Contact Information')
+                Section::make(__('filament/pages/profile.contact.title'))
                     ->relationship('profile')
-                    ->description('Use a permanent address where you can receive mail.')
+                    ->description(__('filament/pages/profile.contact.subtitle'))
                     ->columns([
                         'sm' => 4,
                         'xl' => 6,
                     ])
                     ->schema([
-
                         LocalizedCountrySelect::make('country')
-                            ->label(__('Country'))
+                            ->label(__('filament/pages/profile.contact.country'))
                             ->searchable()
                             ->columnSpan(2),
                         Grid::make()
                             ->columns(3)
                             ->schema([
                                 TextInput::make('city')
-                                    ->label(__('City')),
+                                    ->label(__('filament/pages/profile.contact.city')),
                                 TextInput::make('state')
-                                    ->label(__('State / Province')),
+                                    ->label(__('filament/pages/profile.contact.state')),
                                 TextInput::make('zip')
-                                    ->label(__('ZIP / Postal code')),
+                                    ->label(__('filament/pages/profile.contact.zip')),
                             ]),
                         Toggle::make('notifications')
-                            ->label(__('Receive notifications')),
+                            ->label(__('filament/pages/profile.contact.notification')),
                     ]),
             ])
             ->statePath('data')
@@ -113,7 +112,7 @@ class Profile extends Page implements HasForms
     {
         return [
             Action::make('Update')
-                ->label(__('Update'))
+                ->label(__('filament/pages/profile.actions.update'))
                 ->color('primary')
                 ->submit('Update'),
         ];
