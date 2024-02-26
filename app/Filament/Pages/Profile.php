@@ -17,6 +17,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Enums\MaxWidth;
+use Illuminate\Contracts\Support\Htmlable;
 
 class Profile extends Page implements HasForms
 {
@@ -26,7 +27,10 @@ class Profile extends Page implements HasForms
 
     protected static string $view = 'filament.pages.profile';
 
-    protected static ?string $title = '';
+    public function getTitle(): string|Htmlable
+    {
+        return __('filament/menu.profile');
+    }
 
     public static function shouldRegisterNavigation(): bool
     {

@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->profile()
             ->userMenuItems([
                 'profile' => MenuItem::make()
-                    ->label(__('Profile'))
+                    ->label(__('filament/menu.profile'))
                     ->icon('heroicon-o-user')
                     ->url(fn (): string => Profile::getUrl()),
             ])
