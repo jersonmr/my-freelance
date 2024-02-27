@@ -56,36 +56,36 @@ class Client extends Model
     {
         return [
             TextInput::make('name')
-                ->label('Company Name')
+                ->label(__('filament/resources/clients.company_name'))
                 ->required(),
             TextInput::make('contact')
-                ->label('Contact Name')
+                ->label(__('filament/resources/clients.contact_name'))
                 ->required(),
             TextInput::make('email')
-                ->label('Email')
+                ->label(__('filament/resources/clients.email'))
                 ->email()
                 ->required(),
             TextInput::make('phone')
-                ->label('Phone')
+                ->label(__('filament/resources/clients.phone'))
                 ->required()
                 ->tel(),
             LocalizedCountrySelect::make('country')
-                ->label('Country')
+                ->label(__('filament/resources/clients.country'))
                 ->required()
                 ->searchable(),
             TextInput::make('address')
-                ->label('Address')
+                ->label(__('filament/resources/clients.address'))
                 ->required()
                 ->columnSpanFull(),
             Group::make()
                 ->columns(3)
                 ->schema([
                     TextInput::make('city')
-                        ->label('City'),
+                        ->label(__('filament/resources/clients.city')),
                     TextInput::make('state')
-                        ->label('State'),
+                        ->label(__('filament/resources/clients.state')),
                     TextInput::make('zip')
-                        ->label('Zip'),
+                        ->label(__('filament/resources/clients.zip')),
                 ]),
         ];
     }

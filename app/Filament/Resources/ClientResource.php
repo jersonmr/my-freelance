@@ -15,6 +15,16 @@ class ClientResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/resources/clients.label');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament/resources/clients.label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -26,13 +36,17 @@ class ClientResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('filament/resources/clients.company_name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('contact')
+                    ->label(__('filament/resources/clients.contact_name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label(__('filament/resources/clients.email'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label(__('filament/resources/clients.phone'))
                     ->searchable(),
             ])
             ->filters([
