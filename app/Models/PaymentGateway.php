@@ -35,14 +35,14 @@ class PaymentGateway extends Model
     {
         return [
             TextInput::make('name')
-                ->label('Client Name')
+                ->label(__('filament/resources/payment_gateways.client_name'))
                 ->required(),
             TextInput::make('email')
-                ->label('Email')
+                ->label(__('filament/resources/payment_gateways.client_email'))
                 ->email()
                 ->required(),
             Select::make('type')
-                ->label('Type')
+                ->label(__('filament/resources/payment_gateways.type'))
                 ->options([
                     'paypal' => 'PayPal',
                     'binance' => 'Binance',

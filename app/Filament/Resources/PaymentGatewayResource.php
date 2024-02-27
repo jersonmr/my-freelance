@@ -16,6 +16,16 @@ class PaymentGatewayResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/resources/payment_gateways.label');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament/resources/payment_gateways.label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -31,10 +41,14 @@ class PaymentGatewayResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('filament/resources/payment_gateways.client_name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label(__('filament/resources/payment_gateways.client_email'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('type')
+                  ->label(__('filament/resources/payment_gateways.type'))
+                    ->searchable(),
             ])
             ->filters([
                 //
