@@ -39,23 +39,28 @@ class Bank extends Model
     {
         return [
             TextInput::make('location')
+                ->label(__('filament/resources/banks.location'))
                 ->required(),
             TextInput::make('name')
+                ->label(__('filament/resources/banks.name'))
                 ->required(),
             TextInput::make('swift')
-                ->label('Bank Code / SWIFT')
+                ->label(__('filament/resources/banks.swift'))
                 ->required(),
             TextInput::make('iban')
-                ->label('Account Number / IBAN')
+                ->label(__('filament/resources/banks.iban'))
                 ->required(),
             TextInput::make('address')
-                ->label('Bank Address')
+                ->label(__('filament/resources/banks.address'))
                 ->required(),
             TextInput::make('beneficiary_name')
+                ->label(__('filament/resources/banks.beneficiary_name'))
                 ->required(),
             TextInput::make('beneficiary_address')
+                ->label(__('filament/resources/banks.beneficiary_address'))
                 ->required(),
             TextInput::make('beneficiary_email')
+                ->label(__('filament/resources/banks.beneficiary_email'))
                 ->required(),
         ];
     }

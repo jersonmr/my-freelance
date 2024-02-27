@@ -15,6 +15,16 @@ class BankResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('filament/resources/banks.label');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('filament/resources/banks.label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -26,10 +36,13 @@ class BankResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('location')
+                    ->label(__('filament/resources/banks.location'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('filament/resources/banks.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('iban')
+                    ->label(__('filament/resources/banks.iban'))
                     ->searchable(),
             ])
             ->filters([
