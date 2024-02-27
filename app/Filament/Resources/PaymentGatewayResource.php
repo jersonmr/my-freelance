@@ -14,7 +14,7 @@ class PaymentGatewayResource extends Resource
 {
     protected static ?string $model = PaymentGateway::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'tabler-brand-paypal';
 
     public static function getNavigationLabel(): string
     {

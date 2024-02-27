@@ -13,7 +13,7 @@ class BankResource extends Resource
 {
     protected static ?string $model = Bank::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'tabler-building-bank';
 
     public static function getNavigationLabel(): string
     {
