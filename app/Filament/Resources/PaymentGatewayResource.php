@@ -16,6 +16,8 @@ class PaymentGatewayResource extends Resource
 
     protected static ?string $navigationIcon = 'tabler-brand-paypal';
 
+    protected static ?int $navigationSort = 30;
+
     public static function getNavigationLabel(): string
     {
         return __('filament/resources/payment_gateways.label');

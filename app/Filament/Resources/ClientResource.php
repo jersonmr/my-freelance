@@ -15,6 +15,8 @@ class ClientResource extends Resource
 
     protected static ?string $navigationIcon = 'tabler-user-star';
 
+    protected static ?int $navigationSort = 10;
+
     public static function getNavigationLabel(): string
     {
         return __('filament/resources/clients.label');
@@ -23,6 +25,11 @@ class ClientResource extends Resource
     public static function getModelLabel(): string
     {
         return __('filament/resources/clients.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('filament/resources/clients.plural_label');
     }
 
     public static function form(Form $form): Form

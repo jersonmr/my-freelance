@@ -15,6 +15,8 @@ class BankResource extends Resource
 
     protected static ?string $navigationIcon = 'tabler-building-bank';
 
+    protected static ?int $navigationSort = 20;
+
     public static function getNavigationLabel(): string
     {
         return __('filament/resources/banks.label');

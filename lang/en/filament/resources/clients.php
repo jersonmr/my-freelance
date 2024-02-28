@@ -2,6 +2,7 @@
 
 return [
     'label' => 'Client',
+    'plural_label' => 'Clients',
     'company_name' => 'Company name',
     'contact_name' => 'Contact name',
     'email' => 'Email',
