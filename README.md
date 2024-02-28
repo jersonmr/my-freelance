@@ -23,6 +23,19 @@ The idea is to have a tool that can help me to manage my freelance work. I want 
 6. Open your browser and go to `http://localhost:8000`
 7. Enjoy!
 
+By default, the application will create a user with the following credentials:
+- Email: `admin@mail.test`
+- Password: `password`
+
+## Usage
+You can use the application to manage your freelance work. You can register your clients, your banks, and your payment methods. You can also handle your invoices.
+
+The app is in spanish, but you can change the language in the `config/app.php` file.
+
+```php
+'locale' => 'es',
+```
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
@@ -39,6 +52,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - [Livewire](https://livewire.laravel.com)
 
 ## Roadmap
+- [ ] Add lang picker
 - [ ] Add expenses
 - [ ] Add time tracking
 - [ ] Add reports
@@ -47,3 +61,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - [ ] Add user roles
 - [ ] Add user permissions
 - [ ] Add user settings
+- [ ] Customize default theme
